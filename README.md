@@ -1,0 +1,1 @@
+# Schnitzeljagd-Gruppe-6
