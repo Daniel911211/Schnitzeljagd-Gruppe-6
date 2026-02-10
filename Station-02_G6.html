@@ -16,8 +16,6 @@ body{
   align-items:center;
   min-height:100vh;
 }
-
-/* CARD */
 .card{
   background:#0f172a;
   padding:24px;
@@ -25,32 +23,21 @@ body{
   width:360px;
   box-shadow:0 20px 40px rgba(0,0,0,.6);
 }
-
 h1{
   text-align:center;
   color:#60a5fa;
   margin-top:0;
 }
-
-/* SECTION */
-.section{
-  margin-bottom:18px;
-}
-
-/* INPUTFELDER – mittig, gleicher Abstand links/rechts */
+.section{margin-bottom:18px;}
 .section input{
   width:100%;
-  box-sizing:border-box;   /* WICHTIG: verhindert Überlaufen */
+  box-sizing:border-box;
   padding:12px;
   border-radius:10px;
   border:1px solid #334155;
   background:#020617;
   color:#e5e7eb;
-  font-size:1rem;
 }
-
-
-/* BUTTON */
 button{
   width:100%;
   padding:14px;
@@ -61,29 +48,16 @@ button{
   font-weight:bold;
   cursor:pointer;
 }
-
-.hilfe{
-  margin-top:10px;
-  background:#475569;
-}
-
+.hilfe{margin-top:10px;background:#475569;}
 .hidden{display:none;}
-
-/* TIMER */
 #timer{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:6px;
+  text-align:center;
   margin-bottom:16px;
   color:#a5f3fc;
   font-weight:bold;
 }
-
-/* HILFEBOX */
 .hilfeBox{
-  margin-bottom:32px;
-  margin-top:18px;
+  margin-top:16px;
   padding:16px;
   border-radius:14px;
   background:rgba(250,204,21,0.08);
@@ -95,174 +69,99 @@ button{
   margin:12px auto;
   display:block;
 }
-.hilfeBox .answers{
-  margin-top:10px;
-  line-height:1.6;
-}
-.hilfeBox .hint{
-  margin-top:10px;
-  font-size:0.85rem;
-  color:#fde68a;
-}
-
-/* ERFOLG */
-.erfolgBox{
-  text-align:center;
-}
+.erfolgBox{text-align:center;}
 .checkIcon{
-  width:48px;
-  height:48px;
-  margin:0 auto 12px;
-  border-radius:10px;
-  background:#22c55e;
-  color:#fff;
-  font-size:28px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.erfolgText{
-  font-size:1.4rem;
-  font-weight:bold;
-  margin-bottom:16px;
+  width:48px;height:48px;margin:0 auto 12px;
+  background:#22c55e;color:white;
+  font-size:28px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
 }
 .raetselBox{
-  padding:16px;
-  border-radius:14px;
+  padding:16px;border-radius:14px;
   background:rgba(34,197,94,0.12);
   border:1px solid rgba(34,197,94,0.45);
   color:#bbf7d0;
-  line-height:1.6;
 }
-  
-  
-  .buchstabenBox{
-  margin-top:20px;
-  padding:16px;
-  border-radius:14px;
-  text-align:center;
-}
-
-.buchstabenTitel{
-  font-size:1.1rem;
-  font-weight:bold;
-  margin-bottom:8px;
-}
-
-.buchstabe{
-  font-size:3.5rem;
-  font-weight:bold;
-  letter-spacing:4px;
-}
-
-.buchstabenBox.feuer{
+.buchstabenBox{
+  margin-top:20px;padding:16px;
+  border-radius:14px;text-align:center;
   background:rgba(239,68,68,0.12);
   border:2px solid rgba(239,68,68,0.6);
 }
-
-.buchstabenBox.feuer .buchstabe{
-  color:#fecaca;
-}
-
-
-
+.buchstabe{font-size:3.5rem;font-weight:bold;color:#fecaca;}
 </style>
-
 </head>
 
 <body>
 
 <div class="card">
 
-<!-- HEADER -->
 <div id="header">
   <h1>📍 Station 2</h1>
   <div id="timer">⏱️ Zeit: 0 s</div>
 </div>
 
+<div id="gpsStatus" style="margin-bottom:14px;color:#fde68a;">
+📡 Standort wird geprüft …
+</div>
 
-<!-- FORMULAR -->
 <form
-  action="https://docs.google.com/forms/d/e/1FAIpQLSf2c7-3JTvk9BarK9MBxpo73ykdESEy84IV-Yo7OxPOvg6zOw/formResponse"
+  action="https://docs.google.com/forms/d/e/1FAIpQLSdULt5n9Mv6MJtZy1W7Y0RjT1_VW56ZkYACE-uukUErIK7trA/formResponse"
   method="POST"
   target="hidden_iframe"
   onsubmit="return auswerten();">
 
   <!-- feste Werte -->
-  <input type="hidden" name="entry.1841279378" value="1"> <!--Gruppe-->
-  <input type="hidden" name="entry.1611288883" value="2"> <!--Station-->
-  <input type="hidden" name="entry.476999913" id="hauptpunkte" value="0">
-  <input type="hidden" name="entry.1855196268" id="bonuspunkte" value="0">
-  <input type="hidden" name="entry.1051828811" id="zeit">
+  <input type="hidden" name="entry.2065943787" value="1">
+  <input type="hidden" name="entry.277494817" value="2">
+  <input type="hidden" name="entry.1434791088" id="hauptpunkte" value="0">
+  <input type="hidden" name="entry.68499526" id="bonuspunkte" value="0">
+  <input type="hidden" name="entry.2070741248" id="zeit">
 
-  <div class="section">
-    <strong>🧩 Hauptfrage</strong><br><br>
-    Wie viele Zapfpistolen gibt es insgesamt?<br><br>
-    <input
-  type="text"
-  id="hauptantwort"
-  name="entry.1865983702"
-  placeholder="Antwort eingeben"
-  required>    
-  </div>
+  <!-- FRAGEN -->
+  <div id="fragenBlock" class="hidden">
 
-  <div class="section">
-    <strong>⭐ Bonusfrage</strong><br><br>
-    Welches Gefahrensymbol erkennt ihr?<br><br>
-    <input
-  type="text"
-  id="bonusantwort"
-  name="entry.1439971772"
-  placeholder="Antwort eingeben">   
-  </div>
-
-  <div id="hilfeBox" class="hilfeBox hidden">
-    <strong>Hilfe – Gefahrensymbol</strong>
-    <img src="https://daniel911211.github.io/Bilder/Leicht-Entflammbar.png"
-         alt="Gefahrensymbol leicht entzündlich">
-
-    <div class="answers">
-      A: Gesundheitsschädlich<br>
-      B: Leicht entzündlich<br>
-      C: Umweltgefährlich
+    <div class="section">
+      <strong>🧩 Hauptfrage</strong><br><br>
+      Wie viele Zapfpistolen gibt es insgesamt?<br><br>
+      <input type="text" id="hauptantwort"
+             name="entry.634051671"
+             required placeholder="Antwort eingeben">
     </div>
 
-    <div class="hint">
-      Hinweis: Gib den Buchstaben oder die Bedeutung ein.
+    <div class="section">
+      <strong>⭐ Bonusfrage</strong><br><br>
+      Welches Gefahrensymbol erkennt ihr?<br><br>
+      <input type="text" id="bonusantwort"
+             name="entry.1320841054"
+             placeholder="Antwort eingeben">
     </div>
-  </div>
 
- <div id="gpsStatus" style="margin:10px 0; font-size:0.9rem; color:#fde68a;">
-📡 Standort wird geprüft …
-</div>
-  
-  <button type="submit">Antworten absenden</button>
+    <div id="hilfeBox" class="hilfeBox hidden">
+      <strong>Hilfe – Gefahrensymbol</strong>
+      <img src="https://daniel911211.github.io/Bilder/Leicht-Entflammbar.png">
+      <div>
+        A: Gesundheitsschädlich<br>
+        B: Leicht entzündlich<br>
+        C: Umweltgefährlich
+      </div>
+    </div>
+
+    <button class="hilfe" type="button" onclick="hilfe()">🆘 Hilfe zur Bonusfrage</button>
+    <button type="submit">Antworten absenden</button>
+  </div>
 </form>
 
-<button class="hilfe" onclick="hilfe()">🆘 Hilfe zur Bonusfrage</button>
-
-<!-- ERFOLG -->
 <div id="erfolg" class="hidden erfolgBox">
   <div class="checkIcon">✔</div>
-  <div class="erfolgText">Antwort gesendet!</div>
-
   <div class="raetselBox">
-    ✖️ <strong>Rätsel zur nächsten Station</strong><br><br>
-    
-Wo günstig der Einkauf gelingt,<br>
-und Blau-Gelb weithin sichtbar blinkt.<br><br>
-
-Bekannt für Preise, klein und fair,<br>
-der Markt am Ort, den fast hier jeder kennt.<br><br>
-
-Daneben steht in kräftigem Gelb,<br>
-ein Platz, der Pakete sicher hält.
+    Wo günstig der Einkauf gelingt,<br>
+    und Blau-Gelb weithin sichtbar blinkt.
   </div>
-  
-<div class="buchstabenBox feuer">
-  <div class="buchstabenTitel">🔐 Euer Lösungsbuchstabe</div>
-  <div class="buchstabe">E</div>
-  
+  <div class="buchstabenBox">
+    <div>🔐 Lösungsbuchstabe</div>
+    <div class="buchstabe">R</div>
+  </div>
 </div>
 
 <iframe name="hidden_iframe" style="display:none;"></iframe>
@@ -270,91 +169,57 @@ ein Platz, der Pakete sicher hält.
 </div>
 
 <script>
-const start = Date.now();
-
-  // ZIEL-KOORDINATEN (HIER ANPASSEN!)
-const ZIEL_LAT = 50.450514;  
-const ZIEL_LON = 9.614289;
-const TOLERANZ_METER = 30;
-
+let start = null;
 let gpsOK = false;
 let hilfeGenutzt = false;
 
-setInterval(()=>{
-  document.getElementById("timer").innerText =
-    "⏱️ Zeit: " + Math.floor((Date.now()-start)/1000) + " s";
-},1000);
+// ZIEL
+const ZIEL_LAT = 50.450514;
+const ZIEL_LON = 9.614289;
+const TOLERANZ = 65;
 
-  navigator.geolocation.getCurrentPosition(
-  pos => {
-    const lat = pos.coords.latitude;
-    const lon = pos.coords.longitude;
-
-    const dist = berechneDistanz(lat, lon, ZIEL_LAT, ZIEL_LON);
-
-    if (dist <= TOLERANZ_METER) {
-      gpsOK = true;
-      document.getElementById("gpsStatus").innerText =
-        "✅ Du bist am richtigen Standort";
-    } else {
-      gpsOK = false;
-      document.getElementById("gpsStatus").innerText =
-        "📍 Du bist noch nicht am richtigen Standort";
-    }
-  },
-  err => {
-    document.getElementById("gpsStatus").innerText =
-      "📡 Bitte Standortfreigabe erlauben";
+navigator.geolocation.getCurrentPosition(pos=>{
+  const d = dist(pos.coords.latitude,pos.coords.longitude,ZIEL_LAT,ZIEL_LON);
+  if(d<=TOLERANZ){
+    gpsOK=true;
+    document.getElementById("gpsStatus").innerText="✅ Standort bestätigt";
+    document.getElementById("fragenBlock").classList.remove("hidden");
+    start=Date.now();
+    setInterval(()=>document.getElementById("timer").innerText=
+      "⏱️ Zeit: "+Math.floor((Date.now()-start)/1000)+" s",1000);
+  }else{
+    document.getElementById("gpsStatus").innerText=`📍 Noch ${Math.round(d)} m entfernt`;
   }
-);
+},()=>document.getElementById("gpsStatus").innerText="📡 Standortfreigabe nötig");
 
-
-  function berechneDistanz(lat1, lon1, lat2, lon2){
-  const R = 6371000;
-  const dLat = (lat2-lat1) * Math.PI/180;
-  const dLon = (lon2-lon1) * Math.PI/180;
-  const a =
-    Math.sin(dLat/2)**2 +
-    Math.cos(lat1*Math.PI/180) *
-    Math.cos(lat2*Math.PI/180) *
-    Math.sin(dLon/2)**2;
-  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+function dist(a,b,c,d){
+  const R=6371000;
+  const x=(c-a)*Math.PI/180;
+  const y=(d-b)*Math.PI/180;
+  const h=Math.sin(x/2)**2+
+    Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(y/2)**2;
+  return R*2*Math.atan2(Math.sqrt(h),Math.sqrt(1-h));
 }
 
 function hilfe(){
-  hilfeGenutzt = true;
+  hilfeGenutzt=true;
   document.getElementById("hilfeBox").classList.remove("hidden");
 }
 
 function auswerten(){
+  if(!gpsOK) return false;
+  document.getElementById("zeit").value=Math.floor((Date.now()-start)/1000);
 
- if (!gpsOK) {
-  alert("📍 Du bist noch nicht am richtigen Standort.");
-  return false;
-}
-  
-  document.getElementById("zeit").value =
-    Math.floor((Date.now()-start)/1000);
+  document.getElementById("hauptpunkte").value =
+    document.getElementById("hauptantwort").value.trim()==="16"?10:0;
 
-  let hp = 0;
-  if(document.getElementById("hauptantwort").value.trim() === "16"){
-    hp = 10;
-  }
-  document.getElementById("hauptpunkte").value = hp;
-
-  let bp = 0;
-  const b = document.getElementById("bonusantwort").value.toLowerCase().trim();
-
-  if(!hilfeGenutzt && b.includes("leicht")) bp = 10;
-  if(hilfeGenutzt && b === "b") bp = 6;
-
-  document.getElementById("bonuspunkte").value = bp;
+  const b=document.getElementById("bonusantwort").value.toLowerCase();
+  document.getElementById("bonuspunkte").value =
+    (!hilfeGenutzt && b.includes("leicht"))?10:(hilfeGenutzt && b==="b"?6:0);
 
   document.querySelector("form").classList.add("hidden");
-  document.querySelector(".hilfe").classList.add("hidden");
-  document.getElementById("erfolg").classList.remove("hidden");
   document.getElementById("header").classList.add("hidden");
-
+  document.getElementById("erfolg").classList.remove("hidden");
   return true;
 }
 </script>

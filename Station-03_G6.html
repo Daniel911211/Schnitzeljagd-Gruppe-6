@@ -16,8 +16,6 @@ body{
   align-items:center;
   min-height:100vh;
 }
-
-/* CARD */
 .card{
   background:#0f172a;
   padding:24px;
@@ -25,19 +23,18 @@ body{
   width:360px;
   box-shadow:0 20px 40px rgba(0,0,0,.6);
 }
-
 h1{
   text-align:center;
   color:#60a5fa;
   margin-top:0;
 }
-
-/* SECTION */
-.section{
-  margin-bottom:18px;
+#timer{
+  text-align:center;
+  margin-bottom:14px;
+  color:#a5f3fc;
+  font-weight:bold;
 }
-
-/* INPUTFELDER – sauber zentriert, kein Überlaufen */
+.section{margin-bottom:18px;}
 .section input{
   width:100%;
   box-sizing:border-box;
@@ -46,10 +43,7 @@ h1{
   border:1px solid #334155;
   background:#020617;
   color:#e5e7eb;
-  font-size:1rem;
 }
-
-  
 button{
   width:100%;
   padding:14px;
@@ -60,107 +54,37 @@ button{
   font-weight:bold;
   cursor:pointer;
 }
-
-.hilfe{
-  margin-top:10px;
-  background:#475569;
-}
-
 .hidden{display:none;}
-
-/* TIMER */
-#timer{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:6px;
-  margin-bottom:16px;
-  color:#a5f3fc;
-  font-weight:bold;
-}
-
-/* HILFEBOX */
-.hilfeBox{
-  margin-top:18px;
-  padding:16px;
-  border-radius:14px;
-  background:rgba(250,204,21,0.08);
-  border:1px solid rgba(250,204,21,0.35);
-  text-align:center;
-}
-.hilfeBox img{
-  max-width:140px;
-  margin:12px auto;
-  display:block;
-}
-.hilfeBox .answers{
-  margin-top:10px;
-  line-height:1.6;
-}
-.hilfeBox .hint{
-  margin-top:10px;
-  font-size:0.85rem;
-  color:#fde68a;
-}
-
-/* ERFOLG */
-.erfolgBox{
-  text-align:center;
-}
+.erfolgBox{text-align:center;}
 .checkIcon{
-  width:48px;
-  height:48px;
+  width:48px;height:48px;
   margin:0 auto 12px;
-  border-radius:10px;
   background:#22c55e;
-  color:#fff;
+  color:white;
   font-size:28px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.erfolgText{
-  font-size:1.4rem;
-  font-weight:bold;
-  margin-bottom:16px;
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
 }
 .raetselBox{
-  padding:16px;
-  border-radius:14px;
+  padding:16px;border-radius:14px;
   background:rgba(34,197,94,0.12);
   border:1px solid rgba(34,197,94,0.45);
   color:#bbf7d0;
   line-height:1.6;
 }
-
-  
- .buchstabenBox.feuer{
-  background:rgba(239,68,68,0.12);
-  border:2px solid rgba(239,68,68,0.6);
-}
-
-.buchstabenBox.feuer .buchstabe{
-  color:#fecaca;
-}
-  .buchstabenBox{
+.buchstabenBox{
   margin-top:20px;
   padding:16px;
   border-radius:14px;
   text-align:center;
+  background:rgba(239,68,68,0.12);
+  border:2px solid rgba(239,68,68,0.6);
 }
-
-.buchstabenTitel{
-  font-size:1.1rem;
-  font-weight:bold;
-  margin-bottom:8px;
-}
-
 .buchstabe{
   font-size:3.5rem;
   font-weight:bold;
-  letter-spacing:4px;
+  color:#fecaca;
 }
-
 </style>
 </head>
 
@@ -174,81 +98,76 @@ button{
   <div id="timer">⏱️ Zeit: 0 s</div>
 </div>
 
+<!-- GPS STATUS -->
+<div id="gpsStatus" style="margin-bottom:14px;color:#fde68a;">
+📡 Standort wird geprüft …
+</div>
 
 <!-- FORMULAR -->
 <form
-  action="https://docs.google.com/forms/d/e/1FAIpQLSf2c7-3JTvk9BarK9MBxpo73ykdESEy84IV-Yo7OxPOvg6zOw/formResponse"
+  id="formular"
+  action="https://docs.google.com/forms/d/e/1FAIpQLSdULt5n9Mv6MJtZy1W7Y0RjT1_VW56ZkYACE-uukUErIK7trA/formResponse"
   method="POST"
   target="hidden_iframe"
   onsubmit="return auswerten();">
 
   <!-- feste Werte -->
-  <input type="hidden" name="entry.1841279378" value="1"> <!--Gruppe-->
-  <input type="hidden" name="entry.1611288883" value="3"> <!--Station-->
-  <input type="hidden" name="entry.476999913" id="hauptpunkte" value="0">
-  <input type="hidden" name="entry.1855196268" id="bonuspunkte" value="0">
-  <input type="hidden" name="entry.1051828811" id="zeit">
+  <input type="hidden" name="entry.2065943787" value="1">
+  <input type="hidden" name="entry.277494817" value="3">
+  <input type="hidden" name="entry.1434791088" id="hauptpunkte" value="0">
+  <input type="hidden" name="entry.68499526" id="bonuspunkte" value="0">
+  <input type="hidden" name="entry.2070741248" id="zeit">
 
-  <div class="section">
-  <strong>🧩 Hauptfrage</strong><br><br>
-  Wie viele Postfächer der Größe M gibt es?<br><br>
+  <!-- FRAGEN -->
+  <div id="fragenBlock" class="hidden">
 
-  <input
-    type="text"
-    id="hauptantwort"
-    name="entry.1865983702"
-    placeholder="Antwort eingeben"
-    required>
-</div>
+    <div class="section">
+      <strong>🧩 Hauptfrage</strong><br><br>
+      Wie viele Postfächer der Größe <strong>XL</strong> gibt es?<br><br>
+      <input type="text"
+             id="hauptantwort"
+             name="entry.634051671"
+             placeholder="Antwort eingeben"
+             required>
+    </div>
 
-<div class="section">
-  <strong>⭐ Bonusfrage </strong><br><br>
-  Günstig einkaufen, das können wir beide,<br>
-  doch mein Name beginnt nicht mit Blau-Gelb, sondern ganz leise.<br><br>
+    <div class="section">
+      <strong>⭐ Bonusfrage </strong><br><br>
+     Günstig einkaufen, das können wir beide,<br>
+     doch mein Name beginnt nicht mit Blau-Gelb, 
+     sondern ganz leise.<br>
 
-  Ich bin oft gleich nebenan zu sehen,<br>
-  welcher Markt will mit Lidl konkurrieren gehen?<br><br>
+     Ich bin oft gleich nebenan zu sehen,<br>
+     welcher Markt will mit Lidl konkurrieren gehen?<br><br>
+      
+      <input type="text"
+             id="bonusantwort"
+             name="entry.1320841054"
+             placeholder="Antwort eingeben">
+    </div>
 
-  <input
-    type="text"
-    id="bonusantwort"
-    name="entry.1439971772"
-    placeholder="Antwort eingeben">
-</div>
-
-  <div id="gpsStatus" style="margin:10px 0; font-size:0.9rem; color:#fde68a;">
-📡 Standort wird geprüft …
-</div>
-
-  <button type="submit">Antworten absenden</button>
-
-
+    <button type="submit">Antworten absenden</button>
+  </div>
 </form>
-
-
 
 <!-- ERFOLG -->
 <div id="erfolg" class="hidden erfolgBox">
   <div class="checkIcon">✔</div>
-  <div class="erfolgText">Antwort gesendet!</div>
 
   <div class="raetselBox">
-    ✖️ <strong>Rätsel zur nächsten Station</strong><br><br>
-    
-Wo Pakete warten, gelb und still,<br>
-geht ihr nun weiter, wie das Rätsel will.<br><br>
+    Wo Pakete warten, gelb und still,<br>
+    geht ihr nun weiter, wie das Rätsel will.<br><br>
 
-Nicht kaufen, nicht laden, kein großes Haus,<br>
-doch Autos rollen hier ein und aus.<br><br>
+    Nicht kaufen, nicht laden, kein großes Haus,<br>
+    doch Autos rollen hier ein und aus.<br><br>
 
-Wo Lernen beginnt und Parken erlaubt,<br>
-ist der Ort, dem ihr nun vertraut.
+    Wo Lernen beginnt und Parken erlaubt,<br>
+    ist der Ort, dem ihr nun vertraut.
+  </div>
 
- </div>
-
-<div class="buchstabenBox feuer">
-  <div class="buchstabenTitel">🔐 Euer Lösungsbuchstabe</div>
-  <div class="buchstabe">D</div>   
+  <div class="buchstabenBox">
+    <div>🔐 Euer Lösungsbuchstabe</div>
+    <div class="buchstabe">E</div>
   </div>
 </div>
 
@@ -257,50 +176,49 @@ ist der Ort, dem ihr nun vertraut.
 </div>
 
 <script>
-  // KONFIGURATION
-const RICHTIGE_M_POSTFAECHER = "10"; // ← HIER später anpassen
-const HAUPTPUNKTE_RICHTIG = 10;
+/* ========= KONFIGURATION ========= */
+const RICHTIGE_XL_POSTFAECHER = "4"; // anpassen
 const BONUSWORT = "aldi";
-const BONUSPUNKTE_RICHTIG = 10;
-
-const start = Date.now();
-
- // ZIEL-KOORDINATEN (HIER ANPASSEN!)
-const ZIEL_LAT = 50.450514;  
+const ZIEL_LAT = 50.450514;
 const ZIEL_LON = 9.614289;
-const TOLERANZ_METER = 30;
+const TOLERANZ = 30;
 
+/* ========= VARIABLEN ========= */
+let start = null;
 let gpsOK = false;
-  
-setInterval(()=>{
-  document.getElementById("timer").innerText =
-    "⏱️ Zeit: " + Math.floor((Date.now()-start)/1000) + " s";
-},1000);
 
-  navigator.geolocation.getCurrentPosition(
-  pos => {
-    const lat = pos.coords.latitude;
-    const lon = pos.coords.longitude;
+/* ========= GPS ========= */
+navigator.geolocation.getCurrentPosition(pos=>{
+  const d = dist(
+    pos.coords.latitude,
+    pos.coords.longitude,
+    ZIEL_LAT,
+    ZIEL_LON
+  );
 
-    const dist = berechneDistanz(lat, lon, ZIEL_LAT, ZIEL_LON);
-
-    if (dist <= TOLERANZ_METER) {
-      gpsOK = true;
-      document.getElementById("gpsStatus").innerText =
-        "✅ Du bist am richtigen Standort";
-    } else {
-      gpsOK = false;
-      document.getElementById("gpsStatus").innerText =
-        "📍 Du bist noch nicht am richtigen Standort";
-    }
-  },
-  err => {
+  if(d <= TOLERANZ){
+    gpsOK = true;
     document.getElementById("gpsStatus").innerText =
-      "📡 Bitte Standortfreigabe erlauben";
-  }
-);
+      "✅ Standort bestätigt – Fragen freigeschaltet";
 
-function berechneDistanz(lat1, lon1, lat2, lon2){
+    document.getElementById("fragenBlock").classList.remove("hidden");
+
+    start = Date.now();
+    setInterval(()=>{
+      document.getElementById("timer").innerText =
+        "⏱️ Zeit: " + Math.floor((Date.now()-start)/1000) + " s";
+    },1000);
+  }else{
+    document.getElementById("gpsStatus").innerText =
+      `📍 Noch ${Math.round(d)} m entfernt`;
+  }
+},()=>{
+  document.getElementById("gpsStatus").innerText =
+    "📡 Standortfreigabe erforderlich";
+});
+
+/* ========= DISTANZ ========= */
+function dist(lat1, lon1, lat2, lon2){
   const R = 6371000;
   const dLat = (lat2-lat1) * Math.PI/180;
   const dLon = (lon2-lon1) * Math.PI/180;
@@ -311,52 +229,30 @@ function berechneDistanz(lat1, lon1, lat2, lon2){
     Math.sin(dLon/2)**2;
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 }
-  
-function auswerten(){
 
-   if (!gpsOK) {
-  alert("📍 Du bist noch nicht am richtigen Standort.");
-  return false;
-}  
-  // Zeit setzen
+/* ========= AUSWERTUNG ========= */
+function auswerten(){
+  if(!gpsOK) return false;
+
   document.getElementById("zeit").value =
     Math.floor((Date.now()-start)/1000);
 
-  /* =====================
-     HAUPTFRAGE
-     ===================== */
-  let hp = 0;
-  const hauptAntwort = document.getElementById("hauptantwort").value.trim();
+  document.getElementById("hauptpunkte").value =
+    document.getElementById("hauptantwort").value.trim() ===
+    RICHTIGE_M_POSTFAECHER ? 10 : 0;
 
-  if (hauptAntwort === RICHTIGE_M_POSTFAECHER) {
-    hp = HAUPTPUNKTE_RICHTIG;
-  }
-  document.getElementById("hauptpunkte").value = hp;
+  document.getElementById("bonuspunkte").value =
+    document.getElementById("bonusantwort").value
+      .toLowerCase()
+      .includes(BONUSWORT) ? 10 : 0;
 
-  /* =====================
-     BONUSFRAGE (freiwillig)
-     ===================== */
-  let bp = 0;
-  const bonusAntwort = document.getElementById("bonusantwort").value
-    .toLowerCase()
-    .trim();
-
-  if (bonusAntwort.includes(BONUSWORT)) {
-    bp = BONUSPUNKTE_RICHTIG;
-  }
-  document.getElementById("bonuspunkte").value = bp;
-
-  /* =====================
-     UI umschalten
-     ===================== */
-  document.querySelector("form").classList.add("hidden");
-  document.getElementById("erfolg").classList.remove("hidden");
+  document.getElementById("formular").classList.add("hidden");
   document.getElementById("header").classList.add("hidden");
+  document.getElementById("erfolg").classList.remove("hidden");
 
   return true;
 }
 </script>
-
 
 </body>
 </html>
